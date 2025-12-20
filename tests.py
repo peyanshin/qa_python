@@ -60,3 +60,33 @@ def test_delete_book_from_favorites():
     books_collector.add_book_in_favorites("КнигаДляУдаления")
     books_collector.delete_book_from_favorites("КнигаДляУдаления")
     assert "КнигаДляУдаления" not in books_collector.favorites
+
+def test_get_books_with_specific_genre():
+    books_collector = BooksCollector()
+    books_collector.add_new_book("КнигаФантастика")
+    books_collector.set_book_genre("КнигаФантастика", "Фантастика")
+    books_collector.add_new_book("Детектив1")
+    books_collector.set_book_genre("Детектив1", "Детективы")
+    assert books_collector.get_books_with_specific_genre("Фантастика") == ["КнигаФантастика"]
+    assert books_collector.get_books_with_specific_genre("Детективы") == ["Детектив1"]
+
+def test_get_list_of_favorites_books():
+    books_collector = BooksCollector()
+    books_collector.add_new_book("ЛюбимаяКнига")
+    books_collector.add_book_in_favorites("ЛюбимаяКнига")
+    assert books_collector.get_list_of_favorites_books() == ["ЛюбимаяКнига"]
+
+def test_get_book_genre():
+    books_collector = BooksCollector()
+    books_collector.add_new_book("Детектив1")
+    books_collector.set_book_genre("Детектив1", "Детективы")
+    assert books_collector.get_book_genre("Детектив1") == "Детективы"
+
+def test_get_books_for_children():
+    books_collector = BooksCollector()
+    books_collector.add_new_book("Мультфильм")
+    books_collector.set_book_genre("Мультфильм", "Мультфильмы")
+    books_collector.add_new_book("Детектив")
+    books_collector.set_book_genre("Детектив", "Детективы")
+    assert "Мультфильм" in books_collector.get_books_for_children()
+    assert "Детектив" not in books_collector.get_books_for_children()
