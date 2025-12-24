@@ -97,11 +97,11 @@ def test_add_new_two_books():
     books_collector.add_new_book('Книга2')
     assert len(books_collector.books_genre) == 2
 
-def test_get_books_name_by_genre():
+def test_get_books_name_and_genre():
     books_collector = BooksCollector()
     books_collector.add_new_book("Комедия1")
     books_collector.set_book_genre("Комедия1", "Комедии")
     books_collector.add_new_book("Ужасы1")
     books_collector.set_book_genre("Ужасы1", "Ужасы")
     expected_genre_dict = {"Комедия1": "Комедии", "Ужасы1": "Ужасы"}
-    assert books_collector.get_books_name_by_genre() == expected_genre_dict
+    assert books_collector.get_books_name_and_genre() == expected_genre_dict
