@@ -1,6 +1,6 @@
 import pytest
 
-from main import BooksCollector
+from main import TestBooksCollector
 
 def test_add_new_book():
     books_collector = BooksCollector()
@@ -76,11 +76,11 @@ def test_get_list_of_favorites_books():
     books_collector.add_book_in_favorites("ЛюбимаяКнига")
     assert books_collector.get_list_of_favorites_books() == ["ЛюбимаяКнига"]
 
-def test_get_book_genre():
+def test_get_book_genre_by_name():
     books_collector = BooksCollector()
     books_collector.add_new_book("Детектив1")
     books_collector.set_book_genre("Детектив1", "Детективы")
-    assert books_collector.get_book_genre("Детектив1") == "Детективы"
+    assert books_collector.get_book_genre_by_name("Детектив1") == "Детективы"
 
 def test_get_books_for_children():
     books_collector = BooksCollector()
@@ -90,3 +90,18 @@ def test_get_books_for_children():
     books_collector.set_book_genre("Детектив", "Детективы")
     assert "Мультфильм" in books_collector.get_books_for_children()
     assert "Детектив" not in books_collector.get_books_for_children()
+
+def test_add_new_two_books():
+    books_collector = BooksCollector()
+    books_collector.add_new_book('Книга1')
+    books_collector.add_new_book('Книга2')
+    assert len(books_collector.books_genre) == 2
+
+def test_get_books_name_by_genre():
+    books_collector = BooksCollector()
+    books_collector.add_new_book("Комедия1")
+    books_collector.set_book_genre("Комедия1", "Комедии")
+    books_collector.add_new_book("Ужасы1")
+    books_collector.set_book_genre("Ужасы1", "Ужасы")
+    expected_genre_dict = {"Комедия1": "Комедии", "Ужасы1": "Ужасы"}
+    assert books_collector.get_books_name_by_genre() == expected_genre_dict
